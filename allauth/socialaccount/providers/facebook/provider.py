@@ -166,7 +166,9 @@ class FacebookProvider(OAuth2Provider):
         return data['id']
 
     def extract_common_fields(self, data):
-        return dict(email=data.get('email'),
+        email = data.get('email') or '{}@facebook.com'.format(data.get('username') or data.get('id'))
+
+        return dict(email=email,
                     username=data.get('username'),
                     first_name=data.get('first_name'),
                     last_name=data.get('last_name'),
